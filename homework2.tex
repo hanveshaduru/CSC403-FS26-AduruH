@@ -1,0 +1,503 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\title{Homework 2}
+\author{Hanvesh Aduru}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+% PROBLEM 1
+% ============================================================
+
+\section*{1. Analyze the Logical Forms}
+
+\subsection*{(a)}
+
+Let
+\[
+J = \text{John is telling the truth}
+\]
+and
+\[
+B = \text{Bill is telling the truth}.
+\]
+
+The logical form is
+\[
+\boxed{(J \land B) \lor (\neg J \land \neg B)}
+\]
+
+\subsection*{(b)}
+
+Let
+\[
+F = \text{I will have fish},
+\qquad
+C = \text{I will have chicken},
+\qquad
+M = \text{I will have mashed potatoes}.
+\]
+
+The logical form is
+\[
+\boxed{(F \lor C) \land \neg(F \land M)}
+\]
+
+\subsection*{(c)}
+
+The statement ``3 is a common divisor of 6, 9, and 15'' is written as
+\[
+\boxed{3 \mid 6 \land 3 \mid 9 \land 3 \mid 15}
+\]
+
+% ============================================================
+% PROBLEM 2
+% ============================================================
+
+\section*{2. Well-Formed Formulas}
+
+\subsection*{(a)}
+
+\[
+\neg(\neg P \lor \neg\neg R)
+\]
+
+\[
+\boxed{\text{Well-formed}}
+\]
+
+\subsection*{(b)}
+
+\[
+\neg(P,Q,\land R)
+\]
+
+\[
+\boxed{\text{Not well-formed}}
+\]
+
+The commas are not logical connectives.
+
+\subsection*{(c)}
+
+\[
+P \land \neg P
+\]
+
+\[
+\boxed{\text{Well-formed}}
+\]
+
+\subsection*{(d)}
+
+\[
+(P \land Q)(P \lor R)
+\]
+
+\[
+\boxed{\text{Not well-formed}}
+\]
+
+There is no logical connective between the two expressions.
+
+% ============================================================
+% PROBLEM 3
+% ============================================================
+
+\section*{3. Translate Formulas into English}
+
+Let
+\[
+T = \text{Taxes will go up}
+\]
+and
+\[
+D = \text{The deficit will go up}.
+\]
+
+\subsection*{(a)}
+
+\[
+T \lor D
+\]
+
+Taxes will go up or the deficit will go up.
+
+\subsection*{(b)}
+
+\[
+\neg(T \land D) \land \neg(\neg T \land \neg D)
+\]
+
+Either taxes will go up or the deficit will go up, but not both.
+
+\subsection*{(c)}
+
+\[
+(T \land \neg D) \lor (D \land \neg T)
+\]
+
+Either taxes will go up and the deficit will not, or the deficit will go up
+and taxes will not.
+
+% ============================================================
+% PROBLEM 4
+% ============================================================
+
+\section*{4. Premises, Conclusions, and Validity}
+
+\subsection*{(a)}
+
+Let
+\[
+J = \text{Jane wins the math prize},
+\]
+\[
+P = \text{Pete wins the math prize},
+\]
+and
+\[
+C = \text{Pete wins the chemistry prize}.
+\]
+
+Premises:
+\[
+\neg(J \land P)
+\]
+\[
+P \lor C
+\]
+\[
+J
+\]
+
+Conclusion:
+\[
+C
+\]
+
+Logical form:
+\[
+\neg(J \land P),\quad P \lor C,\quad J
+\quad \therefore \quad C
+\]
+
+The argument is \textbf{valid}.
+
+Since Jane wins the math prize, Pete cannot also win the math prize.
+Therefore, Pete must win the chemistry prize.
+
+\subsection*{(b)}
+
+Let
+\[
+B = \text{The main course is beef},
+\]
+\[
+F = \text{The main course is fish},
+\]
+\[
+P = \text{The vegetable is peas},
+\]
+and
+\[
+C = \text{The vegetable is corn}.
+\]
+
+Premises:
+\[
+B \lor F
+\]
+\[
+P \lor C
+\]
+\[
+\neg(F \land C)
+\]
+
+Conclusion:
+\[
+\neg(B \land P)
+\]
+
+Logical form:
+\[
+B \lor F,\quad P \lor C,\quad \neg(F \land C)
+\quad \therefore \quad \neg(B \land P)
+\]
+
+The argument is \textbf{invalid}.
+
+For example, beef and peas satisfies all three premises while making the
+conclusion false.
+
+\subsection*{(c)}
+
+Let
+\[
+J = \text{John is telling the truth},
+\]
+\[
+B = \text{Bill is telling the truth},
+\]
+and
+\[
+S = \text{Sam is telling the truth}.
+\]
+
+Premises:
+\[
+J \lor B
+\]
+\[
+\neg S \lor \neg B
+\]
+
+Conclusion:
+\[
+J \lor \neg S
+\]
+
+Logical form:
+\[
+J \lor B,\quad \neg S \lor \neg B
+\quad \therefore \quad J \lor \neg S
+\]
+
+The argument is \textbf{valid}.
+
+% ============================================================
+% PROBLEM 5
+% ============================================================
+
+\section*{5. Truth Tables}
+
+\subsection*{(a)}
+
+\[
+\neg[P \land (Q \lor \neg P)]
+\]
+
+\begin{center}
+\begin{tabular}{c c | c | c | c | c}
+$P$ & $Q$ & $\neg P$ & $Q \lor \neg P$
+& $P \land (Q \lor \neg P)$
+& $\neg[P \land (Q \lor \neg P)]$ \\
+\hline
+T & T & F & T & T & F \\
+T & F & F & F & F & T \\
+F & T & T & T & F & T \\
+F & F & T & T & F & T
+\end{tabular}
+\end{center}
+
+\subsection*{(b)}
+
+\[
+(P \lor Q) \land (\neg P \lor R)
+\]
+
+\begin{center}
+\begin{tabular}{c c c | c | c | c | c}
+$P$ & $Q$ & $R$ & $P \lor Q$ & $\neg P$
+& $\neg P \lor R$ & $(P \lor Q) \land (\neg P \lor R)$ \\
+\hline
+T & T & T & T & F & T & T \\
+T & T & F & T & F & F & F \\
+T & F & T & T & F & T & T \\
+T & F & F & T & F & F & F \\
+F & T & T & T & T & T & T \\
+F & T & F & T & T & T & T \\
+F & F & T & F & T & T & F \\
+F & F & F & F & T & T & F
+\end{tabular}
+\end{center}
+
+% ============================================================
+% PROBLEM 6
+% ============================================================
+
+\section*{6. Exclusive OR}
+
+The symbol $+$ means exclusive OR:
+\[
+P + Q = \text{P or Q, but not both}.
+\]
+
+\subsection*{(a)}
+
+\begin{center}
+\begin{tabular}{c c | c}
+$P$ & $Q$ & $P+Q$ \\
+\hline
+T & T & F \\
+T & F & T \\
+F & T & T \\
+F & F & F
+\end{tabular}
+\end{center}
+
+\subsection*{(b)}
+
+An equivalent formula using only $\land$, $\lor$, and $\neg$ is
+
+\[
+\boxed{(P \lor Q) \land \neg(P \land Q)}
+\]
+
+Truth table:
+
+\begin{center}
+\begin{tabular}{c c | c | c | c | c}
+$P$ & $Q$ & $P \lor Q$ & $P \land Q$
+& $\neg(P \land Q)$
+& $(P \lor Q) \land \neg(P \land Q)$ \\
+\hline
+T & T & T & T & F & F \\
+T & F & T & F & T & T \\
+F & T & T & F & T & T \\
+F & F & F & F & T & F
+\end{tabular}
+\end{center}
+
+The final column is identical to the truth table for $P+Q$.
+
+Therefore,
+\[
+\boxed{P+Q \equiv (P \lor Q) \land \neg(P \land Q)}
+\]
+
+% ============================================================
+% PROBLEM 7
+% ============================================================
+
+\section*{7. Formula Using Only $\land$ and $\neg$}
+
+Find a formula equivalent to $P \lor Q$ using only $\land$ and $\neg$.
+
+By De Morgan's Law,
+\[
+\boxed{P \lor Q \equiv \neg(\neg P \land \neg Q)}
+\]
+
+Truth table:
+
+\begin{center}
+\begin{tabular}{c c | c | c | c | c}
+$P$ & $Q$ & $\neg P$ & $\neg Q$
+& $\neg P \land \neg Q$
+& $\neg(\neg P \land \neg Q)$ \\
+\hline
+T & T & F & F & F & T \\
+T & F & F & T & F & T \\
+F & T & T & F & F & T \\
+F & F & T & T & T & F
+\end{tabular}
+\end{center}
+
+The final column is identical to $P \lor Q$.
+
+% ============================================================
+% PROBLEM 8
+% ============================================================
+
+\section*{8. NAND}
+
+The symbol $|$ means NAND:
+\[
+P|Q = \neg(P \land Q)
+\]
+
+\subsection*{(a)}
+
+\begin{center}
+\begin{tabular}{c c | c | c}
+$P$ & $Q$ & $P \land Q$ & $P|Q$ \\
+\hline
+T & T & T & F \\
+T & F & F & T \\
+F & T & F & T \\
+F & F & F & T
+\end{tabular}
+\end{center}
+
+\subsection*{(b)}
+
+\[
+\boxed{P|Q \equiv \neg(P \land Q)}
+\]
+
+\subsection*{(c)}
+
+Using only the connective $|$:
+
+For $\neg P$:
+\[
+\boxed{\neg P \equiv P|P}
+\]
+
+For $P \lor Q$:
+\[
+\boxed{P \lor Q \equiv (P|P)|(Q|Q)}
+\]
+
+For $P \land Q$:
+\[
+\boxed{P \land Q \equiv (P|Q)|(P|Q)}
+\]
+
+% ============================================================
+% PROBLEM 9
+% ============================================================
+
+\section*{9. Formula Equivalence}
+
+The formulas are:
+
+\[
+\begin{aligned}
+(a) &\quad (P \land Q) \lor (\neg P \land \neg Q)\\
+(b) &\quad \neg P \lor Q\\
+(c) &\quad (P \lor \neg Q) \land (Q \lor \neg P)\\
+(d) &\quad \neg(P \lor Q)\\
+(e) &\quad (Q \land P) \lor \neg P
+\end{aligned}
+\]
+
+Truth table:
+
+\begin{center}
+\begin{tabular}{c c | c c c c c}
+$P$ & $Q$ & (a) & (b) & (c) & (d) & (e) \\
+\hline
+T & T & T & T & T & F & T \\
+T & F & F & F & F & F & F \\
+F & T & F & T & F & F & T \\
+F & F & T & T & T & T & T
+\end{tabular}
+\end{center}
+
+Comparing the final columns:
+
+\[
+\boxed{(a) \equiv (c)}
+\]
+
+and
+
+\[
+\boxed{(b) \equiv (e)}
+\]
+
+Formula (d) is not equivalent to any of the other formulas.
+
+\end{document}
+
