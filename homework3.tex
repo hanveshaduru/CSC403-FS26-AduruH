@@ -1,0 +1,392 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\newcommand{\qed}{\hfill$\square$}
+
+\begin{document}
+
+\begin{center}
+    {\Large\textbf{Proof and the Art of Mathematics}}\\[4pt]
+    {\large\textbf{Chapter 4 Exercises}}\\[10pt]
+    \textbf{Name:} Hanvesh Aduru\\[4pt]
+    \textbf{Due Date:} \underline{\hspace{1.8in}}
+\end{center}
+
+\section*{Exercise 4.1}
+
+\textbf{Claim.} For every integer $n\geq 4$, $2^n<n!$.
+
+\textbf{Proof by induction on $n$.}
+
+\textit{Base case:} When $n=4$,
+\[
+2^4=16<24=4!.
+\]
+Thus the statement holds for $n=4$.
+
+\textit{Induction hypothesis:} Suppose that for some integer
+$k\geq 4$, we have $2^k<k!$. We must prove that
+$2^{k+1}<(k+1)!$.
+
+Using the induction hypothesis,
+\[
+2^{k+1}=2\cdot 2^k<2\cdot k!.
+\]
+Since $k\geq 4$, we know that $k+1>2$. Therefore,
+\[
+2\cdot k!<(k+1)k!=(k+1)!.
+\]
+Combining these inequalities gives
+\[
+2^{k+1}<(k+1)!.
+\]
+This completes the induction, so $2^n<n!$ for all
+integers $n\geq 4$. \qed
+
+\section*{Exercise 4.3}
+
+Let $(f_n)$ be the Fibonacci sequence, where
+$f_0=0$, $f_1=1$, and
+$f_{n+2}=f_{n+1}+f_n$. We claim that
+\[
+f_0+f_1+\cdots+f_n=f_{n+2}-1
+\]
+for every integer $n\geq 0$.
+
+\textbf{Proof by induction on $n$.}
+
+\textit{Base case:} When $n=0$, the left-hand side is
+$f_0=0$. The right-hand side is
+\[
+f_2-1=(f_1+f_0)-1=1-1=0.
+\]
+Thus the identity holds for $n=0$.
+
+\textit{Induction hypothesis:} Suppose
+\[
+f_0+f_1+\cdots+f_k=f_{k+2}-1.
+\]
+For the next case, add $f_{k+1}$ to both sides:
+\begin{align*}
+f_0+\cdots+f_k+f_{k+1}
+&=(f_{k+2}-1)+f_{k+1}\\
+&=f_{k+2}+f_{k+1}-1\\
+&=f_{k+3}-1.
+\end{align*}
+The last equality follows from the Fibonacci recurrence.
+This is precisely the desired identity for $n=k+1$.
+Therefore, by induction, the formula holds for every
+$n\geq 0$. \qed
+
+\section*{Exercise 4.5}
+
+Define an alternative Fibonacci sequence by
+\[
+a_0=0,\qquad a_1=2,\qquad
+a_{n+2}=a_{n+1}+a_n.
+\]
+The sequence begins
+\[
+0,2,2,4,6,10,\ldots
+\]
+
+The analogue of the Fibonacci sum identity is
+\[
+\boxed{a_0+a_1+\cdots+a_n=a_{n+2}-2.}
+\]
+
+\textbf{Proof by induction on $n$.}
+
+\textit{Base case:} When $n=0$, the left-hand side is
+$a_0=0$. The right-hand side is
+\[
+a_2-2=(a_1+a_0)-2=2-2=0.
+\]
+Thus the identity holds for $n=0$.
+
+\textit{Induction hypothesis:} Suppose
+\[
+a_0+a_1+\cdots+a_k=a_{k+2}-2.
+\]
+For the next case, add $a_{k+1}$ to both sides:
+\begin{align*}
+a_0+\cdots+a_k+a_{k+1}
+&=(a_{k+2}-2)+a_{k+1}\\
+&=a_{k+2}+a_{k+1}-2\\
+&=a_{k+3}-2.
+\end{align*}
+The final equality follows from the recurrence relation.
+Thus the identity holds for $k+1$, completing the induction.
+
+\textbf{Generalization.}
+
+More generally, suppose a sequence satisfies
+\[
+a_0=A,\qquad a_1=B,\qquad
+a_{n+2}=a_{n+1}+a_n.
+\]
+Then
+\[
+\boxed{\sum_{i=0}^{n}a_i=a_{n+2}-B}
+\]
+for every $n\geq 0$.
+
+To prove this, use induction. For $n=0$,
+\[
+a_0=A=(A+B)-B=a_2-B.
+\]
+Now suppose $\sum_{i=0}^{k}a_i=a_{k+2}-B$.
+Then
+\begin{align*}
+\sum_{i=0}^{k+1}a_i
+&=a_{k+2}-B+a_{k+1}\\
+&=a_{k+3}-B.
+\end{align*}
+This proves the generalized identity by induction.
+The constant subtracted from $a_{n+2}$ is the initial
+second term $B$. \qed
+
+\section*{Exercise 4.7}
+
+\textbf{Claim.} Every finite set with $n$ elements has
+exactly $2^n$ subsets.
+
+\textbf{Proof by induction on $n$.}
+
+\textit{Base case:} The empty set has exactly one subset:
+the empty set itself. Since $2^0=1$, the claim holds
+for $n=0$.
+
+\textit{Induction hypothesis:} Suppose every set with
+$k$ elements has exactly $2^k$ subsets.
+
+Let $S$ be a set with $k+1$ elements. Choose an element
+$x\in S$. Every subset of $S$ either contains $x$ or
+does not contain $x$.
+
+The subsets that do not contain $x$ are exactly the
+subsets of $S\setminus\{x\}$. Since this set has $k$
+elements, the induction hypothesis tells us that there
+are $2^k$ such subsets.
+
+Every subset that does contain $x$ can be obtained by
+taking a subset of $S\setminus\{x\}$ and adding $x$.
+There are also $2^k$ subsets of this type.
+
+These two groups are disjoint and account for every
+subset of $S$. Consequently, the total number of subsets
+is
+\[
+2^k+2^k=2\cdot 2^k=2^{k+1}.
+\]
+Thus the claim holds for $k+1$. By induction, every
+finite set with $n$ elements has exactly $2^n$ subsets.
+\qed
+
+\section*{Exercise 4.9}
+
+\textbf{Claim.} For every positive integer $n$,
+\[
+\frac{1}{1\cdot2}+\frac{1}{2\cdot3}
++\cdots+\frac{1}{n(n+1)}
+=\frac{n}{n+1}.
+\]
+
+\textbf{Proof by induction on $n$.}
+
+\textit{Base case:} When $n=1$,
+\[
+\frac{1}{1\cdot2}=\frac12=\frac{1}{1+1}.
+\]
+Therefore, the identity holds for $n=1$.
+
+\textit{Induction hypothesis:} Suppose the identity holds
+for $n=k$. Then
+\[
+\sum_{i=1}^{k}\frac{1}{i(i+1)}
+=\frac{k}{k+1}.
+\]
+
+For $n=k+1$, we obtain
+\begin{align*}
+\sum_{i=1}^{k+1}\frac{1}{i(i+1)}
+&=\frac{k}{k+1}
+  +\frac{1}{(k+1)(k+2)}\\
+&=\frac{k(k+2)+1}{(k+1)(k+2)}\\
+&=\frac{k^2+2k+1}{(k+1)(k+2)}\\
+&=\frac{(k+1)^2}{(k+1)(k+2)}\\
+&=\frac{k+1}{k+2}.
+\end{align*}
+This is exactly the desired formula with $n=k+1$.
+Therefore, by induction, the identity holds for every
+positive integer $n$. \qed
+
+\section*{Exercise 4.13}
+
+The statement is true in the usual logical sense.
+It claims that every elephant in the room that is both
+flying and polka-dotted is smoking a cigar.
+
+If there are no flying polka-dotted elephants in the
+room, then there is no object that violates the claim.
+In logic, a universal statement is considered true when
+there are no objects satisfying its conditions. This
+is called \textit{vacuous truth}.
+
+The statement does not claim that such elephants
+actually exist. If a flying, polka-dotted elephant were
+in the room and were not smoking a cigar, that elephant
+would be a counterexample, and the statement would be
+false.
+
+\section*{Exercise 4.15}
+
+The proposed proof is invalid because it confuses the
+finiteness of each partial sum with convergence of the
+infinite series.
+
+For every positive integer $n$,
+\[
+S(n)=\sum_{i=1}^{n}\frac1i
+\]
+is a finite sum of finite numbers, so $S(n)$ is finite.
+However, convergence of an infinite series requires its
+partial sums to approach a finite limit. Equivalently,
+the partial sums must be bounded above.
+
+The induction step establishes only that
+\[
+S(n+1)=S(n)+\frac{1}{n+1}
+\]
+is finite whenever $S(n)$ is finite. It does not
+establish a single finite upper bound that works for
+every $n$.
+
+In fact, the harmonic series diverges. To see this,
+group the terms as follows:
+\[
+1+\frac12+
+\left(\frac13+\frac14\right)+
+\left(\frac15+\cdots+\frac18\right)+\cdots
+\]
+After the first two terms, each block has a number of
+terms that is a power of two. In the block
+\[
+\frac{1}{2^m+1}+\cdots+\frac{1}{2^{m+1}},
+\]
+there are $2^m$ terms, and each term is at least
+$1/2^{m+1}$. Therefore, each such block has sum at
+least
+\[
+2^m\cdot\frac{1}{2^{m+1}}=\frac12.
+\]
+Since there are infinitely many such blocks, the
+partial sums grow without bound. Hence
+\[
+\sum_{n=1}^{\infty}\frac1n=\infty.
+\]
+The argument in the proposed proof shows only that
+each partial sum is finite, not that the infinite
+series converges. \qed
+
+\section*{Exercise 4.17}
+
+We prove that the least-number principle (LNP), common
+induction (CI), and strong induction (SI) are equivalent.
+We work with the nonnegative integers; the same arguments
+apply to any integer starting point after shifting indices.
+
+\subsection*{1. Least-number principle implies common induction}
+
+Assume $P(0)$ is true and that for every $n\geq0$,
+$P(n)$ implies $P(n+1)$.
+
+Suppose, for contradiction, that $P(n)$ is false for
+at least one nonnegative integer. Let
+\[
+A=\{n\geq0:P(n)\text{ is false}\}.
+\]
+By the least-number principle, $A$ has a least element,
+say $m$.
+
+Since $P(0)$ is true, $m\neq0$, so $m\geq1$.
+By the minimality of $m$, $P(m-1)$ must be true.
+The induction step then implies that $P(m)$ is true.
+This contradicts the fact that $m\in A$.
+
+Therefore, there are no counterexamples, and $P(n)$
+holds for every nonnegative integer $n$. Thus the
+least-number principle implies common induction.
+
+\subsection*{2. Common induction implies strong induction}
+
+Suppose $P(0)$ is true and, for every $n\geq0$, if
+$P(0),P(1),\ldots,P(n)$ are all true, then $P(n+1)$
+is true.
+
+Define a new statement $Q(n)$ as follows:
+\[
+Q(n):\quad P(j)\text{ is true for every }0\leq j\leq n.
+\]
+
+The base case $Q(0)$ is true because it is exactly
+the statement $P(0)$.
+
+Now suppose $Q(n)$ is true. By its definition,
+$P(0),P(1),\ldots,P(n)$ are all true. The premise of
+strong induction therefore implies that $P(n+1)$ is
+true. It follows that $Q(n+1)$ is true as well.
+
+By common induction, $Q(n)$ holds for every $n\geq0$.
+Since $Q(n)$ includes the assertion that $P(n)$ is true,
+we conclude that $P(n)$ holds for every $n\geq0$.
+Thus common induction implies strong induction.
+
+\subsection*{3. Strong induction implies the least-number principle}
+
+Let $A$ be a nonempty set of nonnegative integers.
+We want to prove that $A$ has a least element.
+
+Suppose, for contradiction, that $A$ has no least
+element. We will use strong induction to prove that
+no nonnegative integer belongs to $A$.
+
+\textit{Base case:} The number $0$ cannot belong to $A$.
+If it did, it would be the least element of $A$.
+Therefore, $0\notin A$.
+
+\textit{Induction hypothesis:} Suppose none of the
+integers $0,1,\ldots,n$ belongs to $A$.
+
+Consider $n+1$. If $n+1$ belonged to $A$, then none
+of the smaller nonnegative integers would belong to
+$A$, by the induction hypothesis. Consequently,
+$n+1$ would be the least element of $A$, contradicting
+our assumption. Hence $n+1\notin A$.
+
+By strong induction, no nonnegative integer belongs
+to $A$. This contradicts the assumption that $A$ is
+nonempty. Therefore every nonempty set of nonnegative
+integers has a least element, proving the least-number
+principle.
+
+Since we have shown that the least-number principle
+implies common induction, common induction implies
+strong induction, and strong induction implies the
+least-number principle, all three principles are
+equivalent. \qed
+
+\end{document}
