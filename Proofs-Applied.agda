@@ -157,12 +157,12 @@ zero-ne-succ n ()
 -- Exercise 13 : 0 ≠ 1
 -- Specialize zero-ne-succ. Numerals reduce to zero/succ automatically.
 zero-ne-one : _≠_ {A = Nat} 0 1
-zero-ne-one = {! !}
+zero-ne-one = zero-ne-succ 0
 
 -- Exercise 14 : 1 ≠ 0
 -- Introduce h : 1 ≡ 0, use sym, then apply zero-ne-one.
 one-ne-zero : _≠_ {A = Nat} 1 0
-one-ne-zero = {! !}
+one-ne-zero h = zero-ne-one (sym h)
 
 ----------------------------------------
 -- Deciding natural-number equality
@@ -174,12 +174,12 @@ one-ne-zero = {! !}
 -- If they are equal, lift with cong succ. If not, refute equality of
 -- their successors using succ-inj. All five branches require proof evidence.
 nat-equality : (m n : Nat) → Dec (m ≡ n)
-nat-equality zero zero = {! !}
-nat-equality zero (succ n) = {! !}
-nat-equality (succ m) zero = {! !}
+nat-equality zero zero = yes refl
+nat-equality zero (succ n) = no (zero-ne-succ n)
+nat-equality (succ m) zero = no (λ h → zero-ne-succ m (sym h))
 nat-equality (succ m) (succ n) with nat-equality m n
-... | yes h = {! !}
-... | no not-equal = {! !}
+... | yes h = yes (cong succ h)
+... | no not-equal = no (λ h → not-equal (succ-inj h))
 
 -- Once completed, normalize nat-equality 4 4 and nat-equality 4 5.
 -- What evidence does each answer contain? Why does this algorithm not
@@ -196,26 +196,45 @@ nat-equality (succ m) (succ n) with nat-equality m n
 -- In the successor case use add-succ on both sides, then succ-inj,
 -- then the recursive proof. Equality chains can make these steps explicit.
 add-right-cancel : (a b n : Nat) → a + n ≡ b + n → a ≡ b
-add-right-cancel a b n = {! !}
+
+add-right-cancel a b zero h =
+    trans
+        (sym (add-zero a))
+        (trans h (add-zero b))
+
+add-right-cancel a b (succ n) h =
+    add-right-cancel a b n
+        (succ-inj
+            (trans
+                (sym (add-succ a n))
+                (trans h (add-succ b n))))
 
 -- Exercise 17 : Cancel addition on the left
 -- Use add-comm on both sides of the hypothesis and add-right-cancel.
 -- Alternatively, split on n and recursively cancel the leading successors.
 add-left-cancel : (a b n : Nat) → n + a ≡ n + b → a ≡ b
-add-left-cancel a b n = {! !}
+
+add-left-cancel a b n h =
+    add-right-cancel a b n
+        (trans
+            (add-comm a n)
+            (trans h (sym (add-comm b n))))
 
 -- Exercise 18 : A sum equal to its right summand
 -- If x + y ≡ y, then x must be zero. View the right-hand y as 0 + y,
 -- and use add-right-cancel. Here 0 + y reduces to y by definition.
 add-left-eq-self : (x y : Nat) → x + y ≡ y → x ≡ zero
-add-left-eq-self x y = {! !}
+add-left-eq-self x y h =
+    add-right-cancel x zero y h
 
 -- Exercise 19 : A sum equal to its left summand
 -- If x + y ≡ x, then y must be zero. Turn the right-hand x into x + 0
 -- using add-zero backwards and use add-left-cancel. Another approach
 -- uses add-comm and add-left-eq-self.
 add-right-eq-self : (x y : Nat) → x + y ≡ x → y ≡ zero
-add-right-eq-self x y = {! !}
+add-right-eq-self x y h =
+    add-left-cancel y zero x
+        (trans h (sym (add-zero x)))
 
 -- Exercise 20 : A zero sum has a zero left summand
 -- Split on b. When b is zero, use add-zero a and the hypothesis.
@@ -223,15 +242,26 @@ add-right-eq-self x y = {! !}
 -- Use zero-ne-succ (after reversing the equality), then ex-falso.
 -- A case split alone suffices here: neither case requires recursion.
 add-right-eq-zero : (a b : Nat) → a + b ≡ zero → a ≡ zero
-add-right-eq-zero a zero h = {! !}
-add-right-eq-zero a (succ b) h = {! !}
+
+add-right-eq-zero a zero h =
+    trans
+        (sym (add-zero a))
+        h
+
+add-right-eq-zero a (succ b) h =
+    ex-falso
+        (zero-ne-succ (a + b)
+            (sym (trans (sym (add-succ a b)) h)))
 
 -- Exercise 21 : A zero sum has a zero right summand
 -- Use add-comm to exchange a and b, then apply add-right-eq-zero.
 -- Together these last two results give both parts of
 -- (a ≡ zero) × (b ≡ zero) whenever a + b ≡ zero.
 add-left-eq-zero : (a b : Nat) → a + b ≡ zero → b ≡ zero
-add-left-eq-zero a b = {! !}
+
+add-left-eq-zero a b h =
+    add-right-eq-zero b a
+        (trans (sym (add-comm a b)) h)
 
 -- Reflection: Where did you need recursion, and where was a case split
 -- enough? How did the implication proofs become functions on equalities?
@@ -248,11 +278,30 @@ add-left-eq-zero a b = {! !}
 -- For this exercise, practice that argument instead of using nat-equality
 -- or immediately pattern matching on the original impossible equality.
 two-add-two-ne-five : (2 + 2) ≠ 5
-two-add-two-ne-five = {! !}
+
+two-add-two-ne-five h =
+    zero-ne-succ 0
+        (succ-inj
+            (succ-inj
+                (succ-inj
+                    (succ-inj h))))
 
 -- Reflection: Which steps are function application (modus ponens)? Which
 -- introduce an assumption? Which equalities hold by computation?
 -- How could nat-equality help automate larger numeral inequalities?
+
+-- Function application (modus ponens) occurs when we apply a proof
+-- or hypothesis to another proof, such as h2 h1 in Exercise 2.
+-- Introducing an assumption happens when we add a proof argument
+-- like h in Exercises 8, 9, and 22. This lets us work under the
+-- assumption that an equality is true.
+-- Some equalities hold by computation because Agda can reduce
+-- expressions involving numerals and addition directly, such as
+-- 2 + 2 ≡ 4. Other equalities require lemmas like add-comm,
+-- add-succ, or succ-inj.
+-- nat-equality can automate larger numeral inequalities by
+-- recursively comparing two natural numbers and either producing
+-- a proof that they are equal or evidence that they are not.
 
 -- Exercise progression adapted from the Natural Number Game:
 -- https://github.com/leanprover-community/NNG4/tree/main/Game/Levels/Implication
